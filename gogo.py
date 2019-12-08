@@ -1,16 +1,26 @@
 import mysql.connector
-db_connection = mysql.connector.connect(
-    host= "localhost",
-    user= "user",
-    passwd= ""
+
+import csv
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="hello",
+  passwd='',
+  database='db'
 )
-# creating database_cursor to perform SQL operation
-db_cursor = db_connection.cursor()
-# executing cursor with execute method and pass SQL query
-# get list of all databases
-db_cursor.execute("SHOW DATABASES")
-#print all databases
-for db in db_cursor:
-    print(db)
 
+mycursor = mydb.cursor()
+lst=[]
+with open('MOCK_DATA (1).csv') as f:
+  reader=csv.reader(f,delimiter=',')
+  for row in reader:
+    lst.append(row)
 
+print(lst[1])
+sql="insert into brands (id,name) values (%s,%s)"
+for row in lst[1:]:
+  val=(row[0],row[1])
+  mycursor.execute(sql,val)
+
+mydb.commit()
+print("done")
