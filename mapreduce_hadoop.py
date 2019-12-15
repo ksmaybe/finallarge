@@ -30,7 +30,7 @@ mapped=map(mapper,data)
 mapped=zip(data,mapped)
 def reducer():
     pass
-reduced=functools.reduce(reducer,mapped,)
+#reduced=functools.reduce(reducer,mapped)
 cnt=collections.Counter()
 for word in data:
     cnt.update(word)
